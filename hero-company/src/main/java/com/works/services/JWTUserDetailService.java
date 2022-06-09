@@ -108,7 +108,7 @@ public class JWTUserDetailService implements UserDetailsService {
     public ResponseEntity auth(JWTLogin jwtLogin){
         Map<REnum , Object> hm = new LinkedHashMap<>();
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken( //1.33-37
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     jwtLogin.getUsername(),jwtLogin.getPassword()
             )) ;
             UserDetails userDetails = loadUserByUsername(jwtLogin.getUsername());

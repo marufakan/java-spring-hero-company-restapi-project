@@ -20,6 +20,22 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    //list
+    public ResponseEntity<Map<String ,Object>>  searchProduct(String value){
+        Map<REnum,Object> hm = new LinkedHashMap<>();
+        hm.put(REnum.status,true);
+        hm.put(REnum.result, productRepository.findByNameLikeIgnoreCase(value));
+        return new  ResponseEntity(hm, HttpStatus.OK);
+    }
+
+    //post
+    public ResponseEntity<Map<String ,Object>> filterCategory(int id){
+        Map<REnum,Object> hm = new LinkedHashMap<>();
+        hm.put(REnum.status,true);
+        hm.put(REnum.result, productRepository.findByCategoryIdEquals(id));
+        return new  ResponseEntity(hm, HttpStatus.OK);
+    }
+
     //post
     public ResponseEntity<Map<String ,Object>> save(Product product){
         HttpHeaders headers = new HttpHeaders();

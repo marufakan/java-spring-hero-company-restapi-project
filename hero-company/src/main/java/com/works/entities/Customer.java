@@ -1,4 +1,4 @@
-package com.works.entities;//package com.works.entities;//package com.works.entities;
+//package com.works.entities;
 //
 //import lombok.Data;
 //import org.hibernate.validator.constraints.Length;

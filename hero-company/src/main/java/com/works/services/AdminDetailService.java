@@ -1,10 +1,7 @@
 package com.works.services;
 
 import com.works.configs.JwtUtil;
-import com.works.entities.JWTAdmin;
-import com.works.entities.JWTCustomer;
-import com.works.entities.JWTLogin;
-import com.works.entities.Role;
+import com.works.entities.*;
 import com.works.repostories.JWTAdminRepository;
 import com.works.repostories.JWTCustomerRepository;
 import com.works.utils.REnum;
@@ -44,13 +41,6 @@ public class AdminDetailService implements UserDetailsService {
         return null;
     }
 
-    public Collection rolles(Role rolex)
-    {
-        List<GrantedAuthority> ls = new ArrayList<>();
-        ls.add(new SimpleGrantedAuthority(rolex.getName()));
-        return  ls;
-    }
-
     public ResponseEntity registerAdmin(JWTAdmin jwtUser){
         Optional<JWTAdmin> optionalJWTUser = jwtAdminRepository.findByEmailEqualsIgnoreCase(jwtUser.getEmail());
         Map<REnum, Object> hm = new LinkedHashMap();
@@ -74,32 +64,24 @@ public class AdminDetailService implements UserDetailsService {
         return new BCryptPasswordEncoder();
     }
 
-//    public ResponseEntity auth(JWTLogin jwtLogin){
-//        Map<REnum , Object> hm = new LinkedHashMap<>();
-//        try{
-//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken( //1.33-37
-//                    jwtLogin.getUsername(),jwtLogin.getPassword()
-//            )) ;
-//            UserDetails userDetails = loadUserByUsername(jwtLogin.getUsername());
-//            String jwt = jwtUtil.generateToken(userDetails);
-//            hm.put(REnum.status,true);
-//            hm.put(REnum.jwt,jwt);
-//            return  new ResponseEntity(hm,HttpStatus.OK);
-//        }catch (Exception ex){
-//            hm.put(REnum.error,false);
-//            hm.put(REnum.error,ex.getMessage());
-//            return  new ResponseEntity(hm,HttpStatus.NOT_ACCEPTABLE);
-//        }
-//    }
-
-//    public JWTUser info() {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String userName = auth.getName();
-//        Optional<JWTAdmin> optionalJWTAdmin = jwtAdminRepository.findByEmailEqualsIgnoreCase(userName);
-//        Optional<JWTCustomer> optionalJWTCustomer = jwtCustomerRepository.findByEmailEqualsIgnoreCase(userName);
-//        if ( optionalJWTAdmin.isPresent() ) {
-//            return optionalJWTAdmin.get();
-//        }
-//        return null;
-//    }
+    //update
+    public ResponseEntity<Map<String ,Object>> updateAdmin(SettingsAdmin st){
+        Map<REnum,Object> hm = new LinkedHashMap<>();
+        try{
+            Optional<JWTAdmin> oCompany= jwtAdminRepository.findById(st.getId());
+            if(oCompany.isPresent()){
+                jwtAdminRepository.settingsAdmin(st.getCompanyName(),st.getFirstName(),st.getLastName(),st.getEmail(), st.getId());
+                hm.put(REnum.result, st);
+                hm.put(REnum.status, true);
+                return new  ResponseEntity(hm, HttpStatus.OK);
+            }else{
+                hm.put(REnum.status, false);
+                return new  ResponseEntity(hm, HttpStatus.BAD_REQUEST);
+            }
+        }catch (Exception e){
+            hm.put(REnum.status, false);
+            hm.put(REnum.message, e.getMessage());
+        }
+        return new  ResponseEntity(hm, HttpStatus.BAD_REQUEST);
+    }
 }

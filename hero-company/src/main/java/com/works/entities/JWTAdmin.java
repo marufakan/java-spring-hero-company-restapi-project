@@ -13,6 +13,8 @@ public class JWTAdmin extends Base{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String companyName;
+
     private String firstName;
     private String lastName;
     @Email(message = "email giriniz")
@@ -23,9 +25,5 @@ public class JWTAdmin extends Base{
 
     @ManyToOne
     @JoinColumn(name = "role_id",referencedColumnName = "id")
-//    @JoinTable( name = "jwtuser_role",
-//            joinColumns = @JoinColumn( name = "jwtuser_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn( name = "role_id", referencedColumnName = "id")
-//    )
     private Role roles;
 }

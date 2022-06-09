@@ -21,11 +21,9 @@ public class JWTCustomer extends Base{
     private boolean enabled;
     private boolean tokenExpired;
 
+    private String phone;
+
     @ManyToOne
     @JoinColumn(name = "role_id",referencedColumnName = "id")
-//    @JoinTable( name = "jwtuser_role",
-//            joinColumns = @JoinColumn( name = "jwtuser_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn( name = "role_id", referencedColumnName = "id")
-//    )
     private Role roles;
 }

@@ -1,15 +1,11 @@
 package com.works.restcontrollers;
 
-import com.works.entities.JWTAdmin;
-import com.works.entities.JWTCustomer;
-import com.works.entities.JWTLogin;
+import com.works.entities.*;
 import com.works.services.AdminDetailService;
 import com.works.services.CustomerDetailService;
 import com.works.services.JWTUserDetailService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -30,9 +26,29 @@ public class JWTUserRestController {
         return adminDetailService.registerAdmin(jwtUser);
     }
 
+    @PostMapping("/updateAdmin")
+    public ResponseEntity updateAdmin(@Valid @RequestBody SettingsAdmin jwtAdmin){
+        return adminDetailService.updateAdmin(jwtAdmin);
+    }
+
     @PostMapping("customerRegister")
     public ResponseEntity register(@Valid @RequestBody JWTCustomer jwtUser){
         return customerDetailService.registerCustomer(jwtUser);
+    }
+
+    @GetMapping("/listC")
+    public ResponseEntity list(){
+        return customerDetailService.customerList();
+    }
+
+    @DeleteMapping("/deleteC")
+    public ResponseEntity delete(@RequestParam Long id){
+        return customerDetailService.deleteCustomer(id);
+    }
+
+    @PostMapping("/updateC")
+    public ResponseEntity update(@Valid @RequestBody SettingsCustomer customer){
+        return customerDetailService.updateCustomer(customer);
     }
 
     @PostMapping("/auth")

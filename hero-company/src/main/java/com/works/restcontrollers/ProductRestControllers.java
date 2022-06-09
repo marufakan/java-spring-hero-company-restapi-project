@@ -16,6 +16,16 @@ public class ProductRestControllers {
         this.productService = productService;
     }
 
+    @PostMapping("/search")
+    public ResponseEntity search(@RequestParam String value){
+        return productService.searchProduct(value);
+    }
+
+    @PostMapping("/filterCategory")
+    public ResponseEntity save(@RequestParam int id){
+        return productService.filterCategory(id);
+    }
+
     @PostMapping("/save")
     public ResponseEntity save(@Valid @RequestBody Product product){
         return productService.save(product);
