@@ -107,4 +107,25 @@ public class CustomerDetailService implements UserDetailsService {
         return new  ResponseEntity(hm, HttpStatus.BAD_REQUEST);
     }
 
+    public ResponseEntity<Map<String ,Object>> changePassword(ChangePassword st){
+        Map<REnum,Object> hm = new LinkedHashMap<>();
+        try{
+            Optional<JWTCustomer> oCompany= jwtCustomerRepository.findById(st.getId());
+            if(oCompany.isPresent()){
+                String newPassword =  encoder().encode( st.getNewPassword());
+                jwtCustomerRepository.changePassword(newPassword,st.getId());
+                hm.put(REnum.result, st);
+                hm.put(REnum.status, true);
+                return new  ResponseEntity(hm, HttpStatus.OK);
+            }else{
+                hm.put(REnum.status, false);
+                return new  ResponseEntity(hm, HttpStatus.BAD_REQUEST);
+            }
+        }catch (Exception e){
+            hm.put(REnum.status, false);
+            hm.put(REnum.message, e.getMessage());
+        }
+        return new  ResponseEntity(hm, HttpStatus.BAD_REQUEST);
+    }
+
 }

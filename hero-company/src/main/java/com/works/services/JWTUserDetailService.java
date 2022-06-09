@@ -82,25 +82,6 @@ public class JWTUserDetailService implements UserDetailsService {
         return  ls;
     }
 
-//    public ResponseEntity register(JWTCustomer jwtUser){
-//        Optional<JWTCustomer> optionalJWTUser = jwtCustomerRepository.findByEmailEqualsIgnoreCase(jwtUser.getEmail());
-//        Map<REnum, Object> hm = new LinkedHashMap();
-//
-//        if (!optionalJWTUser.isPresent()){
-//            jwtUser.setPassword( encoder().encode( jwtUser.getPassword()));
-//            JWTCustomer user = jwtCustomerRepository.save(jwtUser);
-//
-//            hm.put(REnum.status, true);
-//            hm.put(REnum.result, user);
-//            return new ResponseEntity( hm , HttpStatus.OK);
-//        }else{
-//            hm.put(REnum.status, false);
-//            hm.put(REnum.message, "Bu mail daha kayıt edilmiş");
-//            hm.put(REnum.result, jwtUser);
-//            return new ResponseEntity( hm, HttpStatus.NOT_ACCEPTABLE );
-//        }
-//    }
-
     public PasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }

@@ -14,5 +14,8 @@ public interface JWTCustomerRepository extends JpaRepository<JWTCustomer, Long> 
     @Query(value = "UPDATE jwtcustomer SET first_name=?1, last_name=?2,email=?3, phone=?4 WHERE id=?5 ", nativeQuery = true)
     void settingsCustomer(String first_name, String last_name,String email,String phone ,Long id);
 
+    @Modifying
+    @Query(value = "UPDATE jwtcustomer SET password=?1  WHERE id=?2 ", nativeQuery = true)
+    void changePassword(String password, Long id);
 
 }

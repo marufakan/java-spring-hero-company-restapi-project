@@ -16,4 +16,8 @@ public interface JWTAdminRepository extends JpaRepository<JWTAdmin, Long> {
     @Query(value = "UPDATE jwtadmin SET company_name=?1, first_name=?2,last_name=?3,email=?4 WHERE id=?5 ", nativeQuery = true)
     void settingsAdmin(String company_name, String first_name, String last_name, String email,Long id);
 
+    @Modifying
+    @Query(value = "UPDATE jwtadmin SET password=?1  WHERE id=?2 ", nativeQuery = true)
+    void changePassword(String password, Long id);
+
 }

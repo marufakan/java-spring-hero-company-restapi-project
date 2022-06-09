@@ -31,6 +31,11 @@ public class JWTUserRestController {
         return adminDetailService.updateAdmin(jwtAdmin);
     }
 
+    @PostMapping("/changePasswordAdmin")
+    public ResponseEntity changePassword(@Valid @RequestBody ChangePassword changePassword){
+        return adminDetailService.changePassword(changePassword);
+    }
+
     @PostMapping("customerRegister")
     public ResponseEntity register(@Valid @RequestBody JWTCustomer jwtUser){
         return customerDetailService.registerCustomer(jwtUser);
@@ -49,6 +54,11 @@ public class JWTUserRestController {
     @PostMapping("/updateC")
     public ResponseEntity update(@Valid @RequestBody SettingsCustomer customer){
         return customerDetailService.updateCustomer(customer);
+    }
+
+    @PostMapping("/changePasswordCustomer")
+    public ResponseEntity changePasswordCustomer(@Valid @RequestBody ChangePassword changePassword){
+        return customerDetailService.changePassword(changePassword);
     }
 
     @PostMapping("/auth")
