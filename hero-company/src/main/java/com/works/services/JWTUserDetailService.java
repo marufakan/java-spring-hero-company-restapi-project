@@ -96,10 +96,12 @@ public class JWTUserDetailService implements UserDetailsService {
             String jwt = jwtUtil.generateToken(userDetails);
             hm.put(REnum.status,true);
             hm.put(REnum.jwt,jwt);
+
             return  new ResponseEntity(hm,HttpStatus.OK);
         }catch (Exception ex){
-            hm.put(REnum.error,false);
+            hm.put(REnum.status,false);
             hm.put(REnum.error,ex.getMessage());
+
             return  new ResponseEntity(hm,HttpStatus.NOT_ACCEPTABLE);
         }
     }

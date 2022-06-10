@@ -1,21 +1,26 @@
 package com.works.restcontrollers;
 
-import com.works.utils.REnum;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.works.entities.Sales;
+import com.works.services.SalesService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sales")
 public class SalesRestController {
-    @GetMapping("/list")
-    public Map list(){
-        Map<REnum, Object> hm = new LinkedHashMap();
-        hm.put(REnum.status, true);
-        hm.put(REnum.result, "sales list");
-        return hm;
+    final SalesService salesService;
+
+    public SalesRestController(SalesService salesService) {
+        this.salesService = salesService;
     }
+    @PostMapping("save")
+    public ResponseEntity save(@RequestBody Sales sales){
+        return salesService.saveSale(sales);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity list(){
+        return salesService.salesList();
+    }
+
 }

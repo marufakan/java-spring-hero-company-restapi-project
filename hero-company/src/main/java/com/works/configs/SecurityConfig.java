@@ -41,8 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {//yetkilendirm
                 .authorizeRequests() //giriş rolleri ile çalış
                 .antMatchers("/register","/auth").permitAll()//permitAll herkese acık olan yetksiiz grilebilrn. burda rol ve giriş şartı aramıyrm
 //                .antMatchers("/product/**").hasRole("customer") //hangii servis hangi role calsıır
-                .antMatchers("/note/**").hasRole("admin") //admin sadece muhasebeci gibi hangii. servis hangi role calsıır
-                .antMatchers("/sales/**").hasRole("customer") //hangii servis hangi role calsıır
+//                .antMatchers("/note/**").hasRole("admin") //admin sadece muhasebeci gibi hangii. servis hangi role calsıır
+//                .antMatchers("/sales/**").hasRole("admin") //hangii servis hangi role calsıır
 //                bunllar tanmlardı
                 .and() //authorizte ile ilgili için işim bitti diğer ayarları belirtiyorum
                 .csrf().disable()

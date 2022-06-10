@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data
-public class Category {
+public class Category extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer categoryId;

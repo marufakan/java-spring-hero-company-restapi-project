@@ -12,7 +12,7 @@ import javax.validation.constraints.Positive;
 
 @Entity
 @Data
-public class Product {
+public class Product extends Base{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long pid;
@@ -32,5 +32,6 @@ public class Product {
 //    @OneToOne
 //    @JoinColumn(name = "categoryId")
 //    private Category category;
+
 
 }
