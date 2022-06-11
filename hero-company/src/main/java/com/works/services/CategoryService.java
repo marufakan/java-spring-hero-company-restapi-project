@@ -21,7 +21,7 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    //post
+    //save category
     public ResponseEntity<Map<String ,Object>> saveCategory(Category category){
         HttpHeaders headers = new HttpHeaders();
         headers.add("custom","1234556");

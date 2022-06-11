@@ -106,14 +106,23 @@ public class JWTUserDetailService implements UserDetailsService {
         }
     }
 
-//    public JWTUser info() {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String userName = auth.getName();
-//        Optional<JWTAdmin> optionalJWTAdmin = jwtAdminRepository.findByEmailEqualsIgnoreCase(userName);
-//        Optional<JWTCustomer> optionalJWTCustomer = jwtCustomerRepository.findByEmailEqualsIgnoreCase(userName);
-//        if ( optionalJWTAdmin.isPresent() ) {
-//            return optionalJWTAdmin.get();
-//        }
-//        return null;
-//    }
+    public String infoCustomer() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        Optional<JWTCustomer> optionalJWTUser = jwtCustomerRepository.findByEmailEqualsIgnoreCase(userName);
+        if ( optionalJWTUser.isPresent() ) {
+            return optionalJWTUser.get().getEmail();
+        }
+        return null;
+    }
+
+    public String infoAdmin() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        Optional<JWTCustomer> optionalJWTUser = jwtCustomerRepository.findByEmailEqualsIgnoreCase(userName);
+        if ( optionalJWTUser.isPresent() ) {
+            return optionalJWTUser.get().getEmail();
+        }
+        return null;
+    }
 }

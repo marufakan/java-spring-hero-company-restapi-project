@@ -27,7 +27,8 @@ public class Product extends Base{
     @Length(message = "the length of the text should be at least 2, at most 500", min = 2, max = 500)
     private String detail;
     @Positive(message = "price should be positive")
-    private Integer price;//min max karakter sayısı ayarlanacak
+    private int price;//min max karakter sayısı ayarlanacak
+    private int stock;
 
 //    @OneToOne
 //    @JoinColumn(name = "categoryId")

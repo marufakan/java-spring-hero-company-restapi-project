@@ -71,7 +71,7 @@ public class ProductService {
 
     }
 
-    //update
+    //update Product
     public ResponseEntity<Map<String ,Object>> updateProduct(Product product){
         Map<REnum,Object> hm = new LinkedHashMap<>();
         try{
@@ -91,4 +91,5 @@ public class ProductService {
         }
         return new  ResponseEntity(hm, HttpStatus.BAD_REQUEST);
     }
+
 }

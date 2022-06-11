@@ -31,7 +31,6 @@ public class FilterConfig implements Filter {//servlet olanı imp et
         /*if(ip.equals("0:0:0:0:0:0:0:1")){ //arka arka aynı ipden cokca istek atılırsa ufak bir engelemme yaptık
            res.sendError(401);
         }*/
-//        jwtUserDetailService.info();
         filterChain.doFilter(req,res);
 
     }

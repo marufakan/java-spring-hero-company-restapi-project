@@ -41,6 +41,7 @@ public class AdminDetailService implements UserDetailsService {
         return null;
     }
 
+    //register Admin
     public ResponseEntity registerAdmin(JWTAdmin jwtUser){
         Optional<JWTAdmin> optionalJWTUser = jwtAdminRepository.findByEmailEqualsIgnoreCase(jwtUser.getEmail());
         Map<REnum, Object> hm = new LinkedHashMap();
@@ -64,7 +65,7 @@ public class AdminDetailService implements UserDetailsService {
         return new BCryptPasswordEncoder();
     }
 
-    //update
+    //settings admin
     public ResponseEntity<Map<String ,Object>> updateAdmin(SettingsAdmin st){
         Map<REnum,Object> hm = new LinkedHashMap<>();
         try{
@@ -85,7 +86,7 @@ public class AdminDetailService implements UserDetailsService {
         return new  ResponseEntity(hm, HttpStatus.BAD_REQUEST);
     }
 
-    //update
+    //change password admin
     public ResponseEntity<Map<String ,Object>> changePassword(ChangePassword st){
         Map<REnum,Object> hm = new LinkedHashMap<>();
         try{

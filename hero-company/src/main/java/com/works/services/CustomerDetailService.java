@@ -86,7 +86,7 @@ public class CustomerDetailService implements UserDetailsService {
         }
     }
 
-    //update
+    //settings customer
     public ResponseEntity<Map<String ,Object>> updateCustomer(SettingsCustomer st){
         Map<REnum,Object> hm = new LinkedHashMap<>();
         try{
