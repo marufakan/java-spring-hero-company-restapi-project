@@ -19,7 +19,7 @@ public class Basket extends Base{
     private int count;
     private int status;
 //    @NotBlank(message = "the uuid cannot be left blank")
-//    private String uuid;
+    private String uuid;
     private int categoryId;
 }
 

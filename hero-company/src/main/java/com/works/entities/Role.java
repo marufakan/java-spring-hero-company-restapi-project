@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Role extends Base{
+public class Role{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

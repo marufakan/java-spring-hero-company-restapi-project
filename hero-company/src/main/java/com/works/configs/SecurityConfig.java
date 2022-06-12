@@ -60,9 +60,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {//yetkilendirm
     }
 
     @Bean
-    @Override //callspoolde bu yok diye yaptk
+    @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
 
+    //todo: yetkilendirme yapılacak
 }

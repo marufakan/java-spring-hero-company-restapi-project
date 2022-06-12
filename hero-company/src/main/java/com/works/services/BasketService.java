@@ -11,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BasketService {
@@ -33,9 +31,28 @@ public class BasketService {
     public ResponseEntity<Map<String ,Object>> saveBasket(Basket basket){
         HttpHeaders headers = new HttpHeaders();
         headers.add("custom","1234556");
+        //ürün var mı ve stock yeterli mi kontrol ediliyor
         Optional<Product> oProduct = productRepository.findByPidAndStockGreaterThanEqual(basket.getPid(),basket.getCount());
         Map<REnum,Object> hm = new LinkedHashMap<>();
         if(oProduct.isPresent()){
+            //todo:ordera eklediğinde stock dusme de yapılabilir
+            Product product=productRepository.findByPid(basket.getPid());
+            product.setStock(product.getStock()-basket.getCount());
+            productService.updateProduct(product);
+            Basket basket1=basket;
+            System.out.println("---------------------------------------------------------------------");
+            try{
+                List<Basket> ls=basketRepository.findByCreatedByEqualsIgnoreCaseAndStatusEquals(jwtUserDetailService.infoCustomer(), 1);
+                if(ls.size()>0){
+                    basket1.setUuid(ls.get(0).getUuid());
+                }
+                else {
+                    basket1.setUuid(UUID.randomUUID().toString());
+                }
+            }catch (Exception e){
+
+            }
+            //todo:düzenlenecke kod temizliği
             Basket p=basketRepository.save(basket);
             hm.put(REnum.status,true);
             hm.put(REnum.result, p);
@@ -76,11 +93,10 @@ public class BasketService {
     }
 
     //update
-    //todo:order tablosuna ekleme kısmı için kullanılacak
     public ResponseEntity<Map<String ,Object>> updateBasket(Basket basket){
         Map<REnum,Object> hm = new LinkedHashMap<>();
         try{
-            Optional<Basket> oBasket = basketRepository.findById(basket.getId());
+            Optional<Basket> oBasket = basketRepository.findByIdIs(basket.getId());
             if(oBasket.isPresent()){
                 Basket basket1=basket;
                 basket1.setStatus(0);

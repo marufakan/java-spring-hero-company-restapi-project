@@ -15,9 +15,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Optional<Product> findByPidAndStockGreaterThanEqual(Long pid, int stock);
 
-    //todo:ordera eklemek istediğinde stock güncelenecek
-    @Modifying
-    @Query(value = "UPDATE product SET stock=?1  WHERE pid=?2 ", nativeQuery = true)
-    void updateStock(int stock, Long id);
+    Product findByPid(Long pid);
+
+
 
 }
