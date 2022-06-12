@@ -11,5 +11,4 @@ public interface OrderReportRepository extends JpaRepository<OrderReport, Long> 
     @Query(value = "select o.id,created_by,total from orders o inner join basket b on o.uuid = b.uuid group by b.uuid", nativeQuery = true)
     List<OrderReport> ordersCustomerReport();
 
-
 }

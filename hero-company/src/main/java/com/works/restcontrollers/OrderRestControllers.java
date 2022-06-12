@@ -32,6 +32,11 @@ public class OrderRestControllers {
         return orderService.orderReportList();
     }
 
+    @GetMapping("/listReportDetails")
+    public ResponseEntity listReportDetails(){
+        return orderService.orderReportDetails();
+    }
+
 //    @DeleteMapping("/delete")
 //    public ResponseEntity delete(@RequestParam Long orderId){
 //        return orderService.deleteOrder(orderId);

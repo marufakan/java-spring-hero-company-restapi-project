@@ -35,7 +35,6 @@ public class BasketService {
         Optional<Product> oProduct = productRepository.findByPidAndStockGreaterThanEqual(basket.getPid(),basket.getCount());
         Map<REnum,Object> hm = new LinkedHashMap<>();
         if(oProduct.isPresent()){
-            //todo:ordera eklediğinde stock dusme de yapılabilir
             Product product=productRepository.findByPid(basket.getPid());
             product.setStock(product.getStock()-basket.getCount());
             productService.updateProduct(product);
@@ -52,7 +51,6 @@ public class BasketService {
             }catch (Exception e){
 
             }
-            //todo:düzenlenecke kod temizliği
             Basket p=basketRepository.save(basket);
             hm.put(REnum.status,true);
             hm.put(REnum.result, p);

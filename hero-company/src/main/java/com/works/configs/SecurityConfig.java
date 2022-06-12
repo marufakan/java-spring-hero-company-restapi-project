@@ -65,5 +65,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {//yetkilendirm
         return super.authenticationManager();
     }
 
-    //todo: yetkilendirme yapılacak
 }

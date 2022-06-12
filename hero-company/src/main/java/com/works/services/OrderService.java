@@ -2,11 +2,9 @@ package com.works.services;
 
 import com.works.entities.Basket;
 import com.works.entities.OrderReport;
+import com.works.entities.OrderReportDetails;
 import com.works.entities.Orders;
-import com.works.repostories.BasketRepository;
-import com.works.repostories.OrderReportRepository;
-import com.works.repostories.OrdersRepository;
-import com.works.repostories.ProductRepository;
+import com.works.repostories.*;
 import com.works.utils.REnum;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,41 +23,36 @@ public class OrderService {
     final BasketService basketService;
     final ProductRepository productRepository;
     final OrderReportRepository orderReportRepository;
+    final OrderReportDetailsRepository orderReportDetailsRepository;
 
-    public OrderService(OrdersRepository ordersRepository, BasketRepository basketRepository, JWTUserDetailService jwtUserDetailService, BasketService basketService, ProductRepository productRepository, OrderReportRepository orderReportRepository) {
+    public OrderService(OrdersRepository ordersRepository, BasketRepository basketRepository, JWTUserDetailService jwtUserDetailService, BasketService basketService, ProductRepository productRepository, OrderReportRepository orderReportRepository, OrderReportDetailsRepository orderReportDetailsRepository) {
         this.ordersRepository = ordersRepository;
         this.basketRepository = basketRepository;
         this.jwtUserDetailService = jwtUserDetailService;
         this.basketService = basketService;
         this.productRepository = productRepository;
         this.orderReportRepository = orderReportRepository;
+        this.orderReportDetailsRepository = orderReportDetailsRepository;
     }
 
     //post
-    // todo:basket tablosunda birden fazla basket tablosunu alıp bunları hesaplayarak ordera kaydet
     public ResponseEntity<Map<String ,Object>> saveOrder(){
         HttpHeaders headers = new HttpHeaders();
         headers.add("custom","1234556");
         Map<REnum,Object> hm = new LinkedHashMap<>();
         try{
             List<Basket> basketList=basketRepository.findByCreatedByEqualsIgnoreCaseAndStatusEquals(jwtUserDetailService.infoCustomer(), 1);
-
-            System.out.println("----------------------------------------------");
-            for (Basket item:basketList) {
-                System.out.println(item);
-            }
-            System.out.println("----------------------------------------------");
             Orders newOrder=fncorders(basketList);
             Orders orders=ordersRepository.save(newOrder);
 
             hm.put(REnum.status,true);
             hm.put(REnum.result, orders);
+
+            return new  ResponseEntity(hm,headers, HttpStatus.OK);
         }
         catch (Exception e){
-
+            return new  ResponseEntity(hm,headers, HttpStatus.BAD_REQUEST);
         }
-
-        return new  ResponseEntity(hm,headers, HttpStatus.OK);
     }
 
     //list
@@ -75,7 +68,6 @@ public class OrderService {
         orders.setUuid(basketList.get(0).getUuid());
         int total=0;
         for (Basket item:basketList) {
-            // todo:total hesaplama ksımında product price ihtiyac var
             int price = (productRepository.findByPid(item.getPid())).getPrice();
             total += ((item.getCount())*price);
             basketService.updateBasket(item);//satılan ürünleri basketten güncelleme
@@ -87,6 +79,14 @@ public class OrderService {
     public ResponseEntity<Map<String ,Object>>  orderReportList(){
         Map<REnum,Object> hm = new LinkedHashMap<>();
         List<OrderReport> orderReport= orderReportRepository.ordersCustomerReport();
+        hm.put(REnum.status,true);
+        hm.put(REnum.result, orderReport);
+        return new  ResponseEntity(hm, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Map<String ,Object>>  orderReportDetails(){
+        Map<REnum,Object> hm = new LinkedHashMap<>();
+        List<OrderReportDetails> orderReport= orderReportDetailsRepository.oRDetails();
         hm.put(REnum.status,true);
         hm.put(REnum.result, orderReport);
         return new  ResponseEntity(hm, HttpStatus.OK);
