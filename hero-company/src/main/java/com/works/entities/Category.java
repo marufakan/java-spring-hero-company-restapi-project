@@ -19,8 +19,4 @@ public class Category extends Base {
     @NotBlank(message = "enter the category name information")
     @Length(message = "the length of the text should be at least 2, at most 50", min = 2, max = 50)
     private String name;
-
-//    @OneToOne(mappedBy = "category")
-//    private Product product;
-
 }

@@ -13,6 +13,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByNameLikeIgnoreCase(String name);
 
+    List<Product> findByNameLikeIgnoreCaseAndDetailLikeIgnoreCase(String name, String detail);
+
     Optional<Product> findByPidAndStockGreaterThanEqual(Long pid, int stock);
 
     Product findByPid(Long pid);

@@ -15,10 +15,10 @@ public class Basket extends Base{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long pid;//varlığı denetlenecek
+    private Long pid;
     private int count;
     private int status;
-//    @NotBlank(message = "the uuid cannot be left blank")
+    @NotBlank(message = "the uuid cannot be left blank")
     private String uuid;
     private int categoryId;
 }

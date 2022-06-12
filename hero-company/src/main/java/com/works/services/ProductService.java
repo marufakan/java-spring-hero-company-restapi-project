@@ -1,6 +1,7 @@
 package com.works.services;
 
 import com.works.entities.Product;
+import com.works.repostories.CategoryRepository;
 import com.works.repostories.ProductRepository;
 import com.works.utils.REnum;
 import org.springframework.http.HttpHeaders;
@@ -15,16 +16,18 @@ import java.util.Optional;
 @Service
 public class ProductService {
     final ProductRepository productRepository;
+    final CategoryRepository categoryRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     //list
     public ResponseEntity<Map<String ,Object>>  searchProduct(String value){
         Map<REnum,Object> hm = new LinkedHashMap<>();
         hm.put(REnum.status,true);
-        hm.put(REnum.result, productRepository.findByNameLikeIgnoreCase(value));
+        hm.put(REnum.result, productRepository.findByNameLikeIgnoreCaseAndDetailLikeIgnoreCase(value,value));
         return new  ResponseEntity(hm, HttpStatus.OK);
     }
 
@@ -40,12 +43,18 @@ public class ProductService {
     public ResponseEntity<Map<String ,Object>> save(Product product){
         HttpHeaders headers = new HttpHeaders();
         headers.add("custom","1234556");
-        Product p=productRepository.save(product);
-
         Map<REnum,Object> hm = new LinkedHashMap<>();
-        hm.put(REnum.status,true);
-        hm.put(REnum.result, p);
-        return new  ResponseEntity(hm,headers, HttpStatus.OK);
+        if(categoryRepository.findById(product.getCategoryId()).isPresent()){
+            Product p=productRepository.save(product);
+            hm.put(REnum.status,true);
+            hm.put(REnum.result, p);
+            return new  ResponseEntity(hm,headers, HttpStatus.OK);
+        }
+        else {
+            hm.put(REnum.status,false);
+            hm.put(REnum.error, "category is not found");
+            return new  ResponseEntity(hm,headers, HttpStatus.NOT_FOUND);
+        }
     }
 
     //list
