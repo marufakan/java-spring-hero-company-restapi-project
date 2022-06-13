@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByCategoryIdEquals(int categoryId);
+    List<Product> findByCategoryIdEquals(Long categoryId);
 
     List<Product> findByNameLikeIgnoreCase(String name);
 
-    List<Product> findByNameLikeIgnoreCaseAndDetailLikeIgnoreCase(String name, String detail);
+    List<Product> findByNameLikeIgnoreCaseOrDetailLikeIgnoreCase(String name, String detail);
+
+//    List<Product> findByNameLikeIgnoreCaseAndDetailLikeIgnoreCase(String name, String detail);
 
     Optional<Product> findByPidAndStockGreaterThanEqual(Long pid, int stock);
 

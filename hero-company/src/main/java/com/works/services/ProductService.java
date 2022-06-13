@@ -27,12 +27,12 @@ public class ProductService {
     public ResponseEntity<Map<String ,Object>>  searchProduct(String value){
         Map<REnum,Object> hm = new LinkedHashMap<>();
         hm.put(REnum.status,true);
-        hm.put(REnum.result, productRepository.findByNameLikeIgnoreCaseAndDetailLikeIgnoreCase(value,value));
+        hm.put(REnum.result, productRepository.findByNameLikeIgnoreCaseOrDetailLikeIgnoreCase(value,value));
         return new  ResponseEntity(hm, HttpStatus.OK);
     }
 
     //post
-    public ResponseEntity<Map<String ,Object>> filterCategory(int id){
+    public ResponseEntity<Map<String ,Object>> filterCategory(Long id){
         Map<REnum,Object> hm = new LinkedHashMap<>();
         hm.put(REnum.status,true);
         hm.put(REnum.result, productRepository.findByCategoryIdEquals(id));
@@ -77,7 +77,6 @@ public class ProductService {
             hm.put(REnum.message, ex.getMessage());
             return new  ResponseEntity(hm, HttpStatus.BAD_REQUEST);
         }
-
     }
 
     //update Product

@@ -34,28 +34,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {//yetkilendirm
     // role ve yönetim
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable().formLogin().disable();//form bilgisini arar. csrf kodu arama ve bu formu arama diyoruz biz burda
-        //ustü yoruma aldık 5.gun
-//        rollere gore
         http
-                .authorizeRequests() //giriş rolleri ile çalış
-                .antMatchers("/register","/auth").permitAll()//permitAll herkese acık olan yetksiiz grilebilrn. burda rol ve giriş şartı aramıyrm
-//                .antMatchers("/product/**").hasRole("customer") //hangii servis hangi role calsıır
-//                .antMatchers("/note/**").hasRole("admin") //admin sadece muhasebeci gibi hangii. servis hangi role calsıır
-//                .antMatchers("/sales/**").hasRole("admin") //hangii servis hangi role calsıır
-//                bunllar tanmlardı
+                .authorizeRequests()
+                .antMatchers("/customerRegister","/auth").permitAll()
+                .antMatchers("/basket/**").hasRole("customer")
+                .antMatchers("/adminRegister","/updateAdmin","/changePasswordAdmin").hasRole("admin")
+                .antMatchers("/changePasswordCustomer","/listC","/deleteC","/updateC").hasRole("customer")
+                .antMatchers("/listC","/deleteC","/updateC").hasRole("admin")
+                .antMatchers("/listC","/deleteC","/updateC").hasRole("admin")
+                .antMatchers("/category/list").hasRole("customer")
+                .antMatchers("/category/**").hasRole("admin")
+                .antMatchers("/product/**").hasRole("admin")
+                .antMatchers("/product/filterCategory","/product/search").hasRole("customer")
+                .antMatchers("/order/save").hasRole("customer")
+                .antMatchers("/order/list","/order/listReport","/order/listReportDetails").hasRole("admin")
                 .and() //authorizte ile ilgili için işim bitti diğer ayarları belirtiyorum
                 .csrf().disable()
                 .formLogin().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // o ziyerte ozgu bir nesne olusutur sessiondiir bu webte. //burda da bir sesion arar . sesion nesnesi kuruldu mu
-                //spring kendi sesionu sadece kabul eder dışardan jwt den de bir nesne oluşturmak ister sessionCreationPolicy ile bu izni alrız
-                //arka planda sesion olmadan guvenliği saglayamayız
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); //addFilterBefore oncesinde bunu filtere jwt sini //ses,on kontrou ip kontrollu vb en başta çalışan yer(
-        //jwtFilter hangi sındıfı baz larak filtreleyecegini belirtir
-        //addFilterBefore oncesinde şunu çalıştır dedigmiz ksımdrı
-        //UsernamePasswordAuthenticationFilter.class bu cllas tüürnde calısacak seekilde bir seye sahip ol
-
-
 
     }
 

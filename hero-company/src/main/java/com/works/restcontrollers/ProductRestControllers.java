@@ -22,7 +22,7 @@ public class ProductRestControllers {
     }
 
     @PostMapping("/filterCategory")
-    public ResponseEntity save(@RequestParam int id){
+    public ResponseEntity save(@RequestParam long id){
         return productService.filterCategory(id);
     }
 

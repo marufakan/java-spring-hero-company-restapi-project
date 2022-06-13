@@ -37,14 +37,4 @@ public class OrderRestControllers {
         return orderService.orderReportDetails();
     }
 
-//    @DeleteMapping("/delete")
-//    public ResponseEntity delete(@RequestParam Long orderId){
-//        return orderService.deleteOrder(orderId);
-//    }
-//
-//    @PutMapping("/update")
-//    public ResponseEntity update( @Valid @RequestBody Orders orders){
-//        return orderService.updateOrder(orders);
-//    }
-
 }

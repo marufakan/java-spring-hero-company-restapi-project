@@ -39,6 +39,7 @@ public class BasketService {
             product.setStock(product.getStock()-basket.getCount());
             productService.updateProduct(product);
             Basket basket1=basket;
+            basket1.setStatus(1);
             System.out.println("---------------------------------------------------------------------");
             try{
                 List<Basket> ls=basketRepository.findByCreatedByEqualsIgnoreCaseAndStatusEquals(jwtUserDetailService.infoCustomer(), 1);

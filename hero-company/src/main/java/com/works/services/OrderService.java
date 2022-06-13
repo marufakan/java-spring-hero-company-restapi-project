@@ -69,10 +69,12 @@ public class OrderService {
         int total=0;
         for (Basket item:basketList) {
             int price = (productRepository.findByPid(item.getPid())).getPrice();
+            System.out.println(price);
             total += ((item.getCount())*price);
             basketService.updateBasket(item);//satılan ürünleri basketten güncelleme
+            orders.setTotal(total);
         }
-        orders.setTotal(total);
+
         return orders;
     }
 
