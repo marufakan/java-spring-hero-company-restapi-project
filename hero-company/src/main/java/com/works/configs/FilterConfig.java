@@ -28,9 +28,6 @@ public class FilterConfig implements Filter {//servlet olanı imp et
         String url = req.getRequestURI();
         String info = req.getHeader("User-Agent");
 
-        /*if(ip.equals("0:0:0:0:0:0:0:1")){ //arka arka aynı ipden cokca istek atılırsa ufak bir engelemme yaptık
-           res.sendError(401);
-        }*/
         filterChain.doFilter(req,res);
 
     }

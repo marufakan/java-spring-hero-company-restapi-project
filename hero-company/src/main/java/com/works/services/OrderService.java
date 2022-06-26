@@ -94,39 +94,4 @@ public class OrderService {
         return new  ResponseEntity(hm, HttpStatus.OK);
     }
 
-//    //delete
-//    public ResponseEntity<Map<String ,Object>> deleteOrder(Long orderId ){
-//        Map<REnum,Object> hm = new LinkedHashMap<>();
-//        try {
-//            ordersRepository.deleteById(orderId);
-//            hm.put(REnum.status,true);
-//            return new  ResponseEntity(hm, HttpStatus.OK);
-//        }catch (Exception ex) {
-//            hm.put(REnum.status,false);
-//            hm.put(REnum.message, ex.getMessage());
-//            return new  ResponseEntity(hm, HttpStatus.BAD_REQUEST);
-//        }
-//
-//    }
-
-//    //update
-//    public ResponseEntity<Map<String ,Object>> updateOrder(Orders orders){
-//        Map<REnum,Object> hm = new LinkedHashMap<>();
-//        try{
-//            Optional<Orders> oOrders = ordersRepository.findById(orders.getId());
-//            if(oOrders.isPresent()){
-//                ordersRepository.saveAndFlush(orders);
-//                hm.put(REnum.result, orders);
-//                hm.put(REnum.status, true);
-//                return new  ResponseEntity(hm, HttpStatus.OK);
-//            }else{
-//                hm.put(REnum.status, false);
-//                return new  ResponseEntity(hm, HttpStatus.BAD_REQUEST);
-//            }
-//        }catch (Exception e){
-//            hm.put(REnum.status, false);
-//            hm.put(REnum.message, e.getMessage());
-//        }
-//        return new  ResponseEntity(hm, HttpStatus.BAD_REQUEST);
-//    }
 }

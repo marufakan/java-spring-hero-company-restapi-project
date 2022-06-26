@@ -39,10 +39,4 @@ public class JWTAdmin extends Base{
     @JoinColumn(name = "role_id",referencedColumnName = "id")
     private Role roles;
 
-
-
-//
-
-//    @NotBlank(message = "enter the password information")
-//    @Length(message = "the length of the text should be at least 2, at most 50", min = 2, max = 50)
 }

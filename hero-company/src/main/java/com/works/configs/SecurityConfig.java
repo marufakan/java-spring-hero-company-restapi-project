@@ -13,9 +13,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration //WebSecurityConfigurerAdapter yenisi cıkmıs ama kullanabilirsin
 public class SecurityConfig extends WebSecurityConfigurerAdapter {//yetkilendirmler burdna yonetilecke
 
-    //db varlık deneteimi aautj
-    //http security rolller gohre tanjm
-
     final JwtFilter jwtFilter;
     final JWTUserDetailService jwtUserDetailService;
     public SecurityConfig(JwtFilter jwtFilter, JWTUserDetailService jwtUserDetailService) {
@@ -23,12 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {//yetkilendirm
         this.jwtUserDetailService = jwtUserDetailService;
     }
 
-    // veritabanında yönetim, kullanıcı varlık denetimi
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //super miras olan defulatu alır
-        auth.userDetailsService(jwtUserDetailService).passwordEncoder(jwtUserDetailService.encoder());//bırası springe ilk atarkmdır //userDetailservice tipinde bir şeı bekeler
-        //springin şifr alg biz conf eedbilrz şayet yapacaksak bunu bildirmemzi gerekir
+        auth.userDetailsService(jwtUserDetailService).passwordEncoder(jwtUserDetailService.encoder());
     }
 
     // role ve yönetim
@@ -48,11 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {//yetkilendirm
                 .antMatchers("/product/filterCategory","/product/search").hasRole("customer")
                 .antMatchers("/order/save").hasRole("customer")
                 .antMatchers("/order/list","/order/listReport","/order/listReportDetails").hasRole("admin")
-                .and() //authorizte ile ilgili için işim bitti diğer ayarları belirtiyorum
+                .and()
                 .csrf().disable()
                 .formLogin().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); //addFilterBefore oncesinde bunu filtere jwt sini //ses,on kontrou ip kontrollu vb en başta çalışan yer(
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 

@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/category")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CategoryRestControllers {
     final CategoryService categoryService;
 

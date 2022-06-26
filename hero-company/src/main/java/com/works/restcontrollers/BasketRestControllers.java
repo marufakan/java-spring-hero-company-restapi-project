@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/basket")
+@CrossOrigin(origins = "http://localhost:3000")
 public class BasketRestControllers {
     final BasketService basketService;
 

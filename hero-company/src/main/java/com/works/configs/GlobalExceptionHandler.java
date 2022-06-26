@@ -24,13 +24,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             IllegalStateException il = (IllegalStateException) ex;
             System.out.println( il.getMessage() );
         }
-        System.out.println("hata çalıştı " + ex.getMessage());
+
         return null;
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        System.out.println("hata çalıştı handleMethodArgumentNotValid " + ex.getMessage());
         Map<REnum, Object> hm = new LinkedHashMap<>();
         List<FieldError> errors = ex.getFieldErrors();
         List<Map<String ,String >> lss = new ArrayList<>();
@@ -39,7 +38,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             String fieldName = item.getField();
             String message = item.getDefaultMessage();
             hmx.put(fieldName, message);
-            System.out.println( fieldName + " " + message );
             lss.add(hmx);
         }
         hm.put(REnum.status, false);

@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/order")
+@CrossOrigin(origins = "http://localhost:3000")
 public class OrderRestControllers {
     final OrderService orderService;
 
