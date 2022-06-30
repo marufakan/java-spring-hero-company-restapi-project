@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {//yetkilendirm
                 .formLogin().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        http.cors();
 
     }
 

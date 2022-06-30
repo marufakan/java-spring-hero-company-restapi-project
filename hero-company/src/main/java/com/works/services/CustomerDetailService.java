@@ -54,7 +54,7 @@ public class CustomerDetailService implements UserDetailsService {
             return new ResponseEntity( hm , HttpStatus.OK);
         }else{
             hm.put(REnum.status, false);
-            hm.put(REnum.message, "Bu mail daha kayıt edilmiş");
+            hm.put(REnum.message, "Bu mail daha önce kayıt edilmiş");
             hm.put(REnum.result, jwtUser);
             return new ResponseEntity( hm, HttpStatus.NOT_ACCEPTABLE );
         }
